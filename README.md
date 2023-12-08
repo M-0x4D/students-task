@@ -18,7 +18,7 @@ To deploy this project run
 - run this command
 
 ```bash
-  sudo docker run -p 7070:7070 springmvctask
+  sudo docker run -p 7070:7070 mohamedadel197/spring-mvc-task
 ```
 
 - heeeey : now the server is running on port 7070
