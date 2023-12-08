@@ -1,13 +1,21 @@
 package com.example.studentstask.Controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.studentstask.Models.Dto.CourseDto;
+import com.example.studentstask.Models.Dto.QuizDto;
+import com.example.studentstask.Models.Entities.Course;
+import com.example.studentstask.Models.Entities.Quiz;
 import com.example.studentstask.Services.QuizService;
 
 @RestController
@@ -17,37 +25,40 @@ public class QuizController {
     @Autowired
     private QuizService quizService ;
 
-    @GetMapping("/create")
-    private String create()
+    @PostMapping("/create")
+    private QuizDto create(@RequestBody Quiz quiz)
     {
-        return "create";
+        QuizDto res = this.quizService.create(quiz);
+        return res;
 
     }
 
     @GetMapping("get-all")
-    private void getAll()
+    private List<Quiz> getAll()
     {
-
+        return this.quizService.getAll();
     }
 
     @GetMapping("get-quiz/{id}")
-    private int getQuiz(@PathVariable int id)
+    private QuizDto getQuiz(@PathVariable int id)
     {
-        return id;
+        return this.quizService.getQuiz(id);
     }
 
 
-    @PutMapping("/update/{id}")
-    private int update(@PathVariable int id)
+    @PutMapping("/update")
+    private QuizDto update(@RequestBody Quiz quiz)
     {
-        return id;
+        QuizDto res = this.quizService.update(quiz);
+        return res;
     }
 
     
     @DeleteMapping("/delete/{id}")
-    private void delete(@PathVariable int id)
+    private String delete(@PathVariable int id)
     {
-
+        this.quizService.delete(id);
+        return "quiz deleted successfully";
     }
 
 }
